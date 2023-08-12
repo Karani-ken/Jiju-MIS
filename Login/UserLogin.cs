@@ -11,8 +11,8 @@ namespace Jiju_MIS.Login
             Console.WriteLine("Password");
             var password = Console.ReadLine();
             DetailsValidation(username);
-            var userDetails= username + password;
-            getUser(userDetails);
+            
+           
 
 
         }
@@ -26,20 +26,16 @@ namespace Jiju_MIS.Login
         }
         public void getUser(string user)
         {
-            string line;
-            StreamReader file = new StreamReader(@"C:\Data\User.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                //Splits each line into words
-                String[] words = line.Split(' ');
-                //try matching usernames to find the exact username
-                if (words.Contains(user))
-                {
-                    
-                    Console.WriteLine(user);
-                   
-                }
+            string path = @"C:\Data\User.txt";
+            string[] Users = File.ReadAllLines(path);
 
+            string pathUsername  = Users[1];
+            string pathPassword = Users[2];
+            string pathRole = Users[3];
+
+            foreach(var item in Users)
+            {
+                if(pathUsername == user.n)
             }
 
         }

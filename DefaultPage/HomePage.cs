@@ -26,6 +26,7 @@ namespace Jiju_MIS.DefaultPage
             else
             {
                 Console.WriteLine("Invelid option");
+                LoadingPage();
             }
         }
     }

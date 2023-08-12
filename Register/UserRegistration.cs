@@ -21,12 +21,20 @@ namespace Jiju_MIS.Register
             Password= Console.ReadLine();
             Console.WriteLine("Please confirm your Password:");
             confirmPwd=Console.ReadLine();
-           DetailsValidation(UserName, Password, confirmPwd);
-           AddUser(UserName, Password);
-            
+            var isValid = DetailsValidation(UserName, Password, confirmPwd);
+              if(isValid == 0)
+                {
+                    AddUser(UserName, Password);
+                }
+                else
+                {
+                Console.WriteLine("Something went wrong");
+            }
+
+
             return users;
         }
-        public void DetailsValidation(string userName, string Password, string confirmPwd)
+        public int DetailsValidation(string userName, string Password, string confirmPwd)
         {
            if(userName == null  || Password == null || confirmPwd == null)
             {
@@ -36,22 +44,28 @@ namespace Jiju_MIS.Register
            else if(Password != confirmPwd)
             {
                 Console.WriteLine("Passwords do not Match!!");
-                userRegistration();
+                
             }
             else
             {
-                
+                return 0;
             }
+            return 0;
         }
         public void AddUser(string username,  string password)
         {
-            // var User = new UserData() { Id = 1, userName = UserName, password = Password, Role = Role.user };
-            var User = "UserName: " + username + "Password: " + password + "Role:" + "user";
-
+            Random rand = new Random();
+            int id = rand.Next();
+             var User = new UserData() { Id = id, userName = username, password = password, Role = Role.user };
+           // var User = "UserName: " + username + "Password: " + password + "Role:" + "user";
+            
             //create a path
             var path = @"C:\Data\User.txt";
-            File.AppendAllText(path, User);
+            string userDetails =$"{User.Id}\t\t{User.userName}\t\t{User.password}\t\t{User.Role} \n";
+            File.AppendAllText(path, userDetails);
             Console.WriteLine("Registration successfull...");
+           
         }
+        
     }
 }

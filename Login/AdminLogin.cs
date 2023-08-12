@@ -1,4 +1,5 @@
-﻿using Jiju_MIS.Models;
+﻿using Jiju_MIS.Courses;
+using Jiju_MIS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace Jiju_MIS.Login
 {
     public class AdminLogin
     {
-  
+        CourseActions courses = new CourseActions();
+
         public void LoginAdmin()
         {
             Console.WriteLine("Welcome to the Jitu. Please Enter login Details to login");
@@ -22,7 +24,25 @@ namespace Jiju_MIS.Login
             bool adminAuthenticated = GetAdmin(username, password);
             if (adminAuthenticated)
             {
-                Console.WriteLine("Login Successfull");
+                Console.WriteLine("Login Successfull\n\n");
+                Console.WriteLine("select an option to proceed:\n 1.View Courses\n 2.Add new course\n " +
+                    "3.Delete course\n 4.Update Course\n 5.View Analytics");
+                var option = Console.ReadLine();
+                int selectedOption = Convert.ToInt32(option);
+                if (selectedOption == 1)
+                {
+                   
+                    Console.WriteLine("Coursename,price,decription");
+                    courses.DisplayCourses();
+                }
+                else if(selectedOption == 2)
+                {
+                    courses.CourseRegistration();
+
+                }
+                
+
+                
             }
             else
             {
@@ -48,7 +68,7 @@ namespace Jiju_MIS.Login
             foreach (string line in lines)
             {
                 string[] AdminDetails = line.Split(',');
-                if (AdminDetails.Length == 3 && AdminDetails[0] == username && AdminDetails[1] == password && AdminDetails[2]== "admin")
+                if (AdminDetails.Length == 3 && AdminDetails[0] == username && AdminDetails[1] == password && AdminDetails[2].Contains("admin"))
                 {
                     return true;
                 }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Jiju_MIS.Courses;
+using System.IO;
 namespace Jiju_MIS.Login
 {
     public class UserLogin
@@ -15,6 +16,21 @@ namespace Jiju_MIS.Login
             if(userAuthenticated)
             {
                 Console.WriteLine("Login Successfull");
+                
+                Console.WriteLine("Select an option:\n 1: View All courses \n 2: Purchased Courses");
+                var options = Console.ReadLine();
+                bool selectedOption = int.TryParse(options, out int convertedOption);
+                if(selectedOption && convertedOption == 1)
+                {
+
+                    CourseActions courses = new CourseActions();
+                    Console.WriteLine("Coursename,price,decription");
+                    courses.DisplayCourses();
+                }
+                else
+                {
+                    Console.WriteLine("You have not purchased any courses");
+                }
             }
             else
             {
@@ -23,6 +39,9 @@ namespace Jiju_MIS.Login
             }
 
 
+        }
+        public void ViewCourses()
+        {
         }
         public void DetailsValidation(string userName)
         {

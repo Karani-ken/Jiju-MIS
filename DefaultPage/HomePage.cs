@@ -24,7 +24,7 @@ namespace Jiju_MIS.DefaultPage
                 AdminLogin admin = new AdminLogin();
                 Console.WriteLine("Select your role: \n 1.Admin \n 2. User");
                 var roleOption = Console.ReadLine();
-                bool roleConverted = int.TryParse(option, out int convertRole);
+                bool roleConverted = int.TryParse(roleOption, out int convertRole);
                 if(roleConverted && convertRole == 1)
                 {
                     admin.LoginAdmin();

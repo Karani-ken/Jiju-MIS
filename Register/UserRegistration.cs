@@ -56,14 +56,14 @@ namespace Jiju_MIS.Register
         {
             //Random rand = new Random();
             //int id = rand.Next();
-             var User = new UserData() {  userName = username, password = password, Role = Role.admin };
+             var User = new UserData() {  userName = username, password = password, Role = Role.user };
            // var User = "UserName: " + username + "Password: " + password + "Role:" + "user";
             
             //create a path
             var path = @"C:\Data\User.txt";
-            string userDetails =$"{User.userName},{User.password},{User.Role}";
+            string userDetails =$"{User.userName},{User.password},{User.Role} \n";
             File.AppendAllText(path, userDetails);
-            Console.WriteLine("Registration successfull...");
+            Console.WriteLine("Registration successfull..." + userDetails);
            
         }
         

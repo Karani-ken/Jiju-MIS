@@ -10,6 +10,7 @@ namespace Jiju_MIS.Courses
     public class CourseActions
     {
         List<CourseData> courses = new List<CourseData>();
+        string path = @"C:\Data\Courses.txt";
 
         public List<CourseData> CourseRegistration()
         {
@@ -43,7 +44,6 @@ namespace Jiju_MIS.Courses
             // var User = "UserName: " + username + "Password: " + password + "Role:" + "user";
 
             //create a path
-            var path = @"C:\Data\Courses.txt";
             string courseDetails = $"{course.Id},{course.coursename},{course.price},{course.description}\n";
             File.AppendAllText(path, courseDetails);
             Console.WriteLine("New Course added successfully...");
@@ -51,13 +51,23 @@ namespace Jiju_MIS.Courses
         }
         public void DisplayCourses()
         {
-            string path = @"C:\Data\Courses.txt";
+
             string[] courses = File.ReadAllLines(path);
-            foreach(var course in courses)
+
+            foreach (var course in courses)
             {
                 Console.WriteLine(course.ToString());
             }
 
+        }
+        public void selectedCourse(int selectedCourse)
+        {
+
+            string[] courses = File.ReadAllLines(path);
+            foreach(var course in courses)
+            {
+
+            }
         }
     }
 }

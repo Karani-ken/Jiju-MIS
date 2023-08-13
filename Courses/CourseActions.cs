@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Jiju_MIS.Courses
 {
@@ -60,14 +62,63 @@ namespace Jiju_MIS.Courses
             }
 
         }
-        public void selectedCourse(int selectedCourse)
+        public void DeleteCourse(char selectedCourse)
         {
-
+            var newContent = "";
             string[] courses = File.ReadAllLines(path);
             foreach(var course in courses)
             {
+                string[] Details = course.Split(',');
+                if (!Details[0].Contains(selectedCourse))
+                {
+                    newContent += course + Environment.NewLine;
+                  
+                }
 
             }
+            File.WriteAllText(path, newContent);
+            Console.WriteLine("course deleted succesfully..");
+         
+        }
+        public void UpdateCourse(char selectedCourse,string newCourseContent)
+        {
+            var newContent = "";
+            string[] courses = File.ReadAllLines(path);
+            foreach (var course in courses)
+            {
+                string[] Details = course.Split(',');
+                if (Details[0].Contains(selectedCourse))
+                {
+
+                    newContent += newCourseContent + Environment.NewLine;
+                    Console.WriteLine(course);
+                }
+                else
+                {
+                    newContent += course + Environment.NewLine;
+                }
+
+            }
+            File.WriteAllText(path, newContent);
+            Console.WriteLine("course deleted succesfully..");
+        }
+        public string selectedCourse(char selectedCourse)
+        {
+           
+            string[] courses = File.ReadAllLines(path);
+            foreach(var course in courses)
+            {
+                string[] courseDetails = course.Split(',');
+                if (courseDetails[0].Contains(selectedCourse))
+                {
+                    Console.WriteLine(course.ToString());
+                   string courseForPurchase = course;
+                    return courseForPurchase;
+                }
+            }
+
+            return null;
+            
         }
     }
 }

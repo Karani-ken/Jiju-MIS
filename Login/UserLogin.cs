@@ -1,9 +1,13 @@
 ﻿using Jiju_MIS.Courses;
+using Jiju_MIS.Purchases;
 using System.IO;
 namespace Jiju_MIS.Login
 {
     public class UserLogin
     {
+        PurchaseCourse purchasedCourse = new PurchaseCourse();
+
+        CourseActions courses = new CourseActions();
         public void LoginUser()
         {
             Console.WriteLine("Welcome to the Jitu. Please Enter login Details to login");
@@ -17,19 +21,25 @@ namespace Jiju_MIS.Login
             {
                 Console.WriteLine("Login Successfull");
                 
-                Console.WriteLine("Select an option:\n 1: View All courses \n 2: Purchased Courses");
+                Console.WriteLine("Select an option:\n 1: View All courses \n 2: My Courses");
                 var options = Console.ReadLine();
                 bool selectedOption = int.TryParse(options, out int convertedOption);
                 if(selectedOption && convertedOption == 1)
                 {
 
-                    CourseActions courses = new CourseActions();
                     Console.WriteLine("Coursename,price,decription");
-                    courses.DisplayCourses();
+                    courses.DisplayCourses();                  
+                    purchasedCourse.CoursePurchase(username);
+                }
+                else if(selectedOption && convertedOption == 2)
+                {
+                    purchasedCourse.ViewAnalytics(username.ToLower());
+
                 }
                 else
                 {
-                    Console.WriteLine("You have not purchased any courses");
+                    Console.WriteLine("Invalid option");
+
                 }
             }
             else
@@ -64,7 +74,7 @@ namespace Jiju_MIS.Login
                     return true;
                 }
             }
-
+           
             return false;
         }
 

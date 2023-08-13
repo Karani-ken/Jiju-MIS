@@ -1,5 +1,6 @@
 ﻿using Jiju_MIS.Courses;
 using Jiju_MIS.Models;
+using Jiju_MIS.Purchases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Jiju_MIS.Login
     public class AdminLogin
     {
         CourseActions courses = new CourseActions();
-
+        PurchaseCourse purchase = new PurchaseCourse();
         public void LoginAdmin()
         {
             Console.WriteLine("Welcome to the Jitu. Please Enter login Details to login");
@@ -39,6 +40,15 @@ namespace Jiju_MIS.Login
                 {
                     courses.CourseRegistration();
 
+                }else if(selectedOption == 3)
+                {
+                    DeleteCourseModule();
+                }else if(selectedOption ==4)
+                {
+                    UpdateCourseModule();
+                }else if(selectedOption ==5)
+                {
+                    purchase.ViewAnalytics();
                 }
                 
 
@@ -51,6 +61,35 @@ namespace Jiju_MIS.Login
             }
 
 
+        }
+        public void DeleteCourseModule()
+        {
+            Console.WriteLine("Delete a course");
+            courses.DisplayCourses();
+            Console.WriteLine("Select a course to delete...");
+            char selectedCourse = Char.Parse(Console.ReadLine());
+            courses.DeleteCourse(selectedCourse);
+
+        }
+        public void UpdateCourseModule()
+        {
+            Console.WriteLine("Update a course");
+            courses.DisplayCourses();
+            Console.WriteLine("Select a course to update...");
+            char selectedCourse = Char.Parse(Console.ReadLine());
+            string coursename, description;
+            int Id, price;
+            Console.WriteLine("Course Name:");
+            coursename = Console.ReadLine();
+            Console.WriteLine("Course Id:");
+            Id = int.Parse(Console.ReadLine());
+            Console.WriteLine("Price:");
+            price = int.Parse(Console.ReadLine());
+            Console.WriteLine("Course Description");
+            description = Console.ReadLine();
+            var course = new CourseData() { Id = Id, coursename = coursename, price = price, description = description };
+            string courseDetails = $"{course.Id},{course.coursename},{course.price},{course.description}\n";
+            courses.UpdateCourse(selectedCourse,courseDetails);
         }
         public void DetailsValidation(string userName)
         {
